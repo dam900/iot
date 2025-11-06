@@ -1,23 +1,11 @@
-import os
-from sqlalchemy import create_engine
-from sqlalchemy.orm import declarative_base
-from dotenv import load_dotenv
+from fastapi import FastAPI
+from fastapi import Depends
+from sqlalchemy.orm import Session
 
-load_dotenv()
+from iotserver.db.models import get_db
 
-DB_PASS = os.getenv('POSTGRES_PASSWORD')
-DB_USER = os.getenv('POSTGRES_USER')
-DB_NAME = os.getenv('POSTGRES_DB')
-DB_HOST = os.getenv('POSTGRES_HOST')
-DB_PORT = os.getenv('POSTGRES_PORT')
-DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+app = FastAPI()
 
-engine = create_engine(DATABASE_URL)
-Base = declarative_base()
-
-def main():
-    pass
-
-
-if __name__ == "__main__":
-    main()
+@app.get("/")
+async def root(db: Session = Depends(get_db)):
+    return {"message": "Hello World"}
