@@ -13,3 +13,14 @@ services:
       - "5432:5432"
     volumes:
       - ./iotserver/db/data:/var/lib/postgresql/data
+  broker:
+    image: eclipse-mosquitto:2.0
+    container_name: my-mosquitto-broker
+    restart: always
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - ./iotbroker/mosquitto/config:/mosquitto/config
+      - ./iotbroker/mosquitto/data:/mosquitto/data
+      - ./iotbroker/mosquitto/log:/mosquitto/log  
