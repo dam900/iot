@@ -21,6 +21,6 @@ services:
       - "1883:1883"
       - "9001:9001"
     volumes:
-      - ./iotbroker/mosquitto/config:/mosquitto/config
-      - ./iotbroker/mosquitto/data:/mosquitto/data
-      - ./iotbroker/mosquitto/log:/mosquitto/log  
+      - ./iotbridge/mosquitto/config:/mosquitto/config
+      - ./iotbridge/mosquitto/data:/mosquitto/data
+      - ./iotbridge/mosquitto/log:/mosquitto/log  
