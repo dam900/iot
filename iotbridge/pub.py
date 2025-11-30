@@ -13,10 +13,8 @@ async def main():
     try:
         async with aiomqtt.Client("localhost", port=1883) as client:
             logging.info("✅ Connected successfully!")
-            await client.subscribe("#")
-            logging.info("Subscribed to all topics. Listening for messages...")
-            async for message in client.messages:
-                logging.info(f"📩 Message received on topic '{message.topic}': {message.payload.decode()}")
+            await client.publish("test/topic", "Hello, MQTT!", qos=1)
+            logging.info("📤 Message published to 'test/topic'.")
             
 
     except aiomqtt.MqttError as e:
