@@ -6,10 +6,8 @@ import logging
 
 logging.basicConfig(level=logging.DEBUG)
 
-
-async def main():   
+async def receive_mqtt():
     logging.info("Attempting to connect to MQTT broker at localhost:1883...")
-
     try:
         async with aiomqtt.Client("localhost", port=1883) as client:
             logging.info("✅ Connected successfully!")
@@ -23,6 +21,9 @@ async def main():
         logging.error(f"❌ MQTT Error: {e}")
     except Exception as e:
         logging.error(f"❌ General Error: {e}")
+
+async def main():   
+    await receive_mqtt()
 
 if __name__ == "__main__":
     if sys.platform.lower() == "win32":
