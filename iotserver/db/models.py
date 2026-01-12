@@ -1,9 +1,10 @@
 import os
 from typing import Generator
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, Column, Integer, String, DateTime
 from sqlalchemy.orm import declarative_base
 from dotenv import load_dotenv
 from sqlalchemy.orm import sessionmaker, Session
+from sqlalchemy.sql import func
 
 load_dotenv()
 
@@ -25,3 +26,11 @@ def get_db() -> Generator[Session, None, None]:
         yield db
     finally:
         db.close()
+
+class Message(Base):
+    __tablename__ = "messages"
+
+    id = Column(Integer, primary_key=True, index=True)
+    topic = Column(String)
+    payload = Column(String)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())

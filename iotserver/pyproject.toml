@@ -5,6 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+    "azure-eventhub>=5.15.1",
     "fastapi[standard]>=0.121.0",
     "psycopg2-binary>=2.9.11",
     "python-dotenv>=1.2.1",

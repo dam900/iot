@@ -1,10 +1,16 @@
 import aiomqtt
 import asyncio
 import sys
-
+import enum
 import logging
 
 logging.basicConfig(level=logging.DEBUG)
+
+def do_process(topic: str) -> bool:
+    unwanted_topics = ["azure","bluetooth"]
+    if topic.split("/")[0] in unwanted_topics:
+        return False
+    return True
 
 async def receive_mqtt():
     logging.info("Attempting to connect to MQTT broker at localhost:1883...")
@@ -15,7 +21,8 @@ async def receive_mqtt():
             logging.info("Subscribed to all topics. Listening for messages...")
             async for message in client.messages:
                 logging.info(f"📩 Message received on topic '{message.topic}': {message.payload.decode()}")
-            
+                if (do_process(str(message.topic))):
+                    await client.publish("azure/" + str(message.topic), message.payload, qos=1)
 
     except aiomqtt.MqttError as e:
         logging.error(f"❌ MQTT Error: {e}")
