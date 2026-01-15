@@ -61,6 +61,20 @@ wheels = [
 ]
 
 [[package]]
+name = "azure-iot-hub"
+version = "2.7.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "azure-core" },
+    { name = "msrest" },
+    { name = "uamqp" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/9a/d9/2342a79968e6ba046768cdb7c69878b7deebc55acd9c8a668b84dcd21c58/azure_iot_hub-2.7.0.tar.gz", hash = "sha256:3ce9c4db4bebe5036ccaaca4071611d5a813626e0f5d6290d588288b75be7180", size = 57784 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/68/d4/3854e1f437417e52b7626043160f1099bf5edad98972b97469331c5fa1c6/azure_iot_hub-2.7.0-py2.py3-none-any.whl", hash = "sha256:f8c01597829f9303b04a23a5fc1d3a430ca404b3c43b2b452797f620f6a73245", size = 102829 },
+]
+
+[[package]]
 name = "certifi"
 version = "2025.10.5"
 source = { registry = "https://pypi.org/simple" }
@@ -385,20 +399,39 @@ name = "iotserver"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
+    { name = "anyio" },
     { name = "azure-eventhub" },
+    { name = "azure-iot-hub" },
     { name = "fastapi", extra = ["standard"] },
     { name = "psycopg2-binary" },
+    { name = "pydantic" },
     { name = "python-dotenv" },
+    { name = "six" },
     { name = "sqlalchemy" },
+    { name = "uamqp" },
 ]
 
 [package.metadata]
 requires-dist = [
+    { name = "anyio", specifier = ">=4.11.0" },
     { name = "azure-eventhub", specifier = ">=5.15.1" },
+    { name = "azure-iot-hub", specifier = ">=2.7.0" },
     { name = "fastapi", extras = ["standard"], specifier = ">=0.121.0" },
     { name = "psycopg2-binary", specifier = ">=2.9.11" },
+    { name = "pydantic", specifier = ">=2.12.4" },
     { name = "python-dotenv", specifier = ">=1.2.1" },
+    { name = "six", specifier = ">=1.17.0" },
     { name = "sqlalchemy", specifier = ">=2.0.44" },
+    { name = "uamqp", specifier = ">=1.6.11" },
+]
+
+[[package]]
+name = "isodate"
+version = "0.7.2"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/54/4d/e940025e2ce31a8ce1202635910747e5a87cc3a6a6bb2d00973375014749/isodate-0.7.2.tar.gz", hash = "sha256:4cd1aa0f43ca76f4a6c6c0292a85f40b35ec2e43e315b59f06e6d32171a953e6", size = 29705 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/15/aa/0aca39a37d3c7eb941ba736ede56d689e7be91cab5d9ca846bde3999eba6/isodate-0.7.2-py3-none-any.whl", hash = "sha256:28009937d8031054830160fce6d409ed342816b543597cece116d966c6d99e15", size = 22320 },
 ]
 
 [[package]]
@@ -506,6 +539,31 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/d6/54/cfe61301667036ec958cb99bd3efefba235e65cdeb9c84d24a8293ba1d90/mdurl-0.1.2.tar.gz", hash = "sha256:bb413d29f5eea38f31dd4754dd7377d4465116fb207585f97bf925588687c1ba", size = 8729 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/b3/38/89ba8ad64ae25be8de66a6d463314cf1eb366222074cfda9ee839c56a4b4/mdurl-0.1.2-py3-none-any.whl", hash = "sha256:84008a41e51615a49fc9966191ff91509e3c40b939176e643fd50a5c2196b8f8", size = 9979 },
+]
+
+[[package]]
+name = "msrest"
+version = "0.7.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "azure-core" },
+    { name = "certifi" },
+    { name = "isodate" },
+    { name = "requests" },
+    { name = "requests-oauthlib" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/68/77/8397c8fb8fc257d8ea0fa66f8068e073278c65f05acb17dcb22a02bfdc42/msrest-0.7.1.zip", hash = "sha256:6e7661f46f3afd88b75667b7187a92829924446c7ea1d169be8c4bb7eeb788b9", size = 175332 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/15/cf/f2966a2638144491f8696c27320d5219f48a072715075d168b31d3237720/msrest-0.7.1-py3-none-any.whl", hash = "sha256:21120a810e1233e5e6cc7fe40b474eeb4ec6f757a15d7cf86702c369f9567c32", size = 85384 },
+]
+
+[[package]]
+name = "oauthlib"
+version = "3.3.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/0b/5f/19930f824ffeb0ad4372da4812c50edbd1434f678c90c2733e1188edfc63/oauthlib-3.3.1.tar.gz", hash = "sha256:0f0f8aa759826a193cf66c12ea1af1637f87b9b4622d46e866952bb022e538c9", size = 185918 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/be/9c/92789c596b8df838baa98fa71844d84283302f7604ed565dafe5a6b5041a/oauthlib-3.3.1-py3-none-any.whl", hash = "sha256:88119c938d2b8fb88561af5f6ee0eec8cc8d552b7bb1f712743136eb7523b7a1", size = 160065 },
 ]
 
 [[package]]
@@ -775,6 +833,19 @@ wheels = [
 ]
 
 [[package]]
+name = "requests-oauthlib"
+version = "2.0.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "oauthlib" },
+    { name = "requests" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/42/f2/05f29bc3913aea15eb670be136045bf5c5bbf4b99ecb839da9b422bb2c85/requests-oauthlib-2.0.0.tar.gz", hash = "sha256:b3dffaebd884d8cd778494369603a9e7b58d29111bf6b41bdc2dcd87203af4e9", size = 55650 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/3b/5d/63d4ae3b9daea098d5d6f5da83984853c1bbacd5dc826764b249fe119d24/requests_oauthlib-2.0.0-py2.py3-none-any.whl", hash = "sha256:7dd8a5c40426b779b0868c404bdef9768deccf22749cde15852df527e6269b36", size = 24179 },
+]
+
+[[package]]
 name = "rich"
 version = "14.2.0"
 source = { registry = "https://pypi.org/simple" }
@@ -919,6 +990,15 @@ wheels = [
 ]
 
 [[package]]
+name = "six"
+version = "1.17.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/94/e7/b2c673351809dca68a0e064b6af791aa332cf192da575fd474ed7d6f16a2/six-1.17.0.tar.gz", hash = "sha256:ff70335d468e7eb6ec65b95b99d3a2836546063f63acc5171de367e834932a81", size = 34031 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/b7/ce/149a00dd41f10bc29e5921b496af8b574d8413afcd5e30dfa0ed46c2cc5e/six-1.17.0-py2.py3-none-any.whl", hash = "sha256:4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274", size = 11050 },
+]
+
+[[package]]
 name = "sniffio"
 version = "1.3.1"
 source = { registry = "https://pypi.org/simple" }
@@ -1011,6 +1091,26 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/55/e3/70399cb7dd41c10ac53367ae42139cf4b1ca5f36bb3dc6c9d33acdb43655/typing_inspection-0.4.2.tar.gz", hash = "sha256:ba561c48a67c5958007083d386c3295464928b01faa735ab8547c5692e87f464", size = 75949 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/dc/9b/47798a6c91d8bdb567fe2698fe81e0c6b7cb7ef4d13da4114b41d239f65d/typing_inspection-0.4.2-py3-none-any.whl", hash = "sha256:4ed1cacbdc298c220f1bd249ed5287caa16f34d44ef4e9c3d0cbad5b521545e7", size = 14611 },
+]
+
+[[package]]
+name = "uamqp"
+version = "1.6.11"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "certifi" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/2e/99/e5fbdd1964f2b7f04fcfacd9c8252a998725af2c2b186d5436ff0499a886/uamqp-1.6.11.tar.gz", hash = "sha256:6bab2fb249cb2ca312795093747227de3f09648f8dad77f432b49a45e5bc403d", size = 4625687 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/9c/eb/9d01c878c5be6f10e1763bfe209a38481ecf8801434f3fa315ba2ab64164/uamqp-1.6.11-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:4bc48997ee1f3717edb5bb3713cf2b8f9b7641a8167194a57782a8b2f26a7e2a", size = 1260523 },
+    { url = "https://files.pythonhosted.org/packages/1e/55/048b333fd1368331ae87b422fa180bdab38077623992e37dbed37d2fe8fe/uamqp-1.6.11-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:fb36875dceabc0bf7ca0523df03d120a8b489d378e5cf152afb10f693f48574c", size = 3893553 },
+    { url = "https://files.pythonhosted.org/packages/5c/20/24c4108c518f06a8f5a911c2c9a643abcd1c641ed6578c6b2d6dc994b1ef/uamqp-1.6.11-cp311-cp311-win_amd64.whl", hash = "sha256:9b4aef57893233f3b0b6b90677964357bc845f510d8794038622095a745ab47b", size = 1077366 },
+    { url = "https://files.pythonhosted.org/packages/f6/11/dfa0f24813b5b5dedf86f3ca97c66d6e2b1df2b2e3cb09b537cef1697b98/uamqp-1.6.11-cp312-cp312-macosx_10_13_x86_64.whl", hash = "sha256:db6dd3feb163bcda69ced8453726c2b2110b99357e46e4ac09c496128438c954", size = 1284601 },
+    { url = "https://files.pythonhosted.org/packages/a2/70/160c1c2be8833f7f824e88aa3761e6b8d6feefeb7a81764fdeabc58ea689/uamqp-1.6.11-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:dd1ef9bf90e527a13581cd9b9755d75c1ae70985e108dbdaa532c1472c9dca2e", size = 4047821 },
+    { url = "https://files.pythonhosted.org/packages/1a/fd/2ee4cbe2c727f8b263560ee49558de8103f1f6c7d0f32bd196e5b4cb0bdf/uamqp-1.6.11-cp312-cp312-win_amd64.whl", hash = "sha256:71a7385ff98b46ee6726be93e34785e473e78b49e513519515420384bbdb37c8", size = 1065582 },
+    { url = "https://files.pythonhosted.org/packages/fd/c8/796b149cc12ce77e0c36efabcdab5f29483f4fcf4fbfb9e5862967ad6210/uamqp-1.6.11-cp313-cp313-macosx_10_13_x86_64.whl", hash = "sha256:9672e1a49cf3c669c4ed664a9d487de8c8361faf0ba5475c5315f2ef379a2fea", size = 1283778 },
+    { url = "https://files.pythonhosted.org/packages/9d/df/84419ba5553502d2a82666c86f83c2afd63488c00826493c1c36edc702ed/uamqp-1.6.11-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:9d1b77c5fd21271176658a90b3a2a6b99f9ec7dcb9d435e608e231fe62a74440", size = 4047204 },
+    { url = "https://files.pythonhosted.org/packages/13/03/adf1b15a05d3558a5dba15c1813bf6bc84e37c19500a578a8062866ee019/uamqp-1.6.11-cp313-cp313-win_amd64.whl", hash = "sha256:6f155ce0ed6f0aabd182205d295742714be005c1079b32a5cdeed1c4511c8e89", size = 1065692 },
 ]
 
 [[package]]
