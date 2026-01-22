@@ -75,7 +75,7 @@
                 <textarea id="sendPayload" class="form-control" rows="1" placeholder='{"command": "reboot"}'></textarea>
             </div>
             <div class="col-md-2 d-flex align-items-end">
-                <button class="btn-send w-100" onclick="sendMessage()">SEND</button>
+                <button class="btn-send w-100" onclick="sendCommand()">SEND</button>
             </div>
         </div>
         <div id="sendResult" class="mt-2 small" style="display: none;"></div>
@@ -168,6 +168,52 @@
             }
         } catch (e) { alert("Payload musi być poprawnym JSONem!"); }
     }
+
+
+    async function sendCommand() {
+    const topic = document.getElementById('sendTopic').value;
+    // Pobieramy tekst (czy to JSON, czy zwykły tekst - nie ma znaczenia)
+    const payload = document.getElementById('sendPayload').value;
+    const resultDiv = document.getElementById('sendResult');
+
+    // Walidacja czy pola nie są puste
+    if (!topic || !payload) {
+        alert("Podaj temat i treść wiadomości!");
+        return;
+    }
+
+    try {
+        // USUNIĘTO: JSON.parse(payload) - teraz pozwalamy na zwykły tekst!
+
+        const response = await fetch('/send', { // Upewnij się, że ten adres pasuje do Twojego backendu (np. /api/send)
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            // Wysyłamy obiekt JSON, gdzie 'payload' jest po prostu napisem (stringiem)
+            body: JSON.stringify({ 
+                topic: topic, 
+                // Ważne: Jeśli w Pythonie (FastAPI/Flask) używasz modelu z polem 'data', 
+                // to zmień poniżej 'payload' na 'data'. 
+                // Jeśli w Pythonie odbierasz 'payload', zostaw tak jak jest.
+                payload: payload 
+            })
+        });
+
+        if (response.ok) {
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'mt-2 small text-success';
+            resultDiv.innerText = "✓ Wysłano wiadomość do urządzenia";
+            setTimeout(() => resultDiv.style.display = 'none', 3000);
+        } else {
+            // Dodano obsługę błędów serwera (np. błąd 500)
+            const errText = await response.text(); 
+            throw new Error("Błąd serwera: " + errText);
+        }
+    } catch (e) { 
+        // Alert teraz pokazuje prawdziwy błąd (np. brak sieci), a nie tylko info o JSON
+        alert("Wystąpił błąd: " + e.message); 
+        console.error(e);
+    }
+}
 
     // --- TWORZENIE SEKCJI ---
     function createSection(topic) {
