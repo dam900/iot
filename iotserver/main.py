@@ -9,13 +9,13 @@ import anyio
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect, Depends, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
-from sqlalchemy.orm import Session
+# from sqlalchemy.orm import Session
 from azure.eventhub.aio import EventHubConsumerClient
 from azure.iot.hub import IoTHubRegistryManager
 
 from dotenv import load_dotenv
 
-from iotserver.db.models import SessionLocal, engine, get_db, Base, Message
+# from iotserver.db.models import SessionLocal, engine, get_db, Base, Message
 
 load_dotenv()
 logging.basicConfig(level=logging.INFO)
@@ -27,7 +27,7 @@ EVENTHUB_NAME = os.getenv("AZURE_EVENTHUB_NAME") # Znajdziesz go w tej samej zak
 IOTHUB_SERVICE_CONN_STR = os.getenv("IOTHUB_SERVICE_CONNECTION_STRING")
 DEVICE_ID = os.getenv("IOTHUB_DEVICE_ID")
 
-Base.metadata.create_all(bind=engine)
+# Base.metadata.create_all(bind=engine)
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 class ConnectionManager:
@@ -51,9 +51,17 @@ class ConnectionManager:
 manager = ConnectionManager()
 registry_manager = None
 
+class Message:
+
+    def __init__(self, topic, payload):
+        self.id = 1
+        self.topic = topic
+        self.payload = payload
+        self.created_at = datetime.now()
+
 async def on_event(partition_context, event):
     payload = event.body_as_str()
-    db = SessionLocal() 
+    # db = SessionLocal() 
     try:
         # Próba sparsowania JSON, ale z fallbackiem
         try:
@@ -69,9 +77,9 @@ async def on_event(partition_context, event):
         str_content = json.dumps(content) if isinstance(content, dict) else str(content)
 
         new_msg = Message(topic=topic, payload=str_content)
-        db.add(new_msg)
-        db.commit()
-        db.refresh(new_msg)
+        # db.add(new_msg)
+        # db.commit()
+        # db.refresh(new_msg)
         
         msg_to_send = {
             "topic": new_msg.topic,
@@ -85,7 +93,8 @@ async def on_event(partition_context, event):
     except Exception as e:
         logging.error(f"Krytyczny błąd on_event: {e}")
     finally:
-        db.close()
+        pass
+        # db.close()
 
 async def azure_listener(conn_str, eh_name):
     client = EventHubConsumerClient.from_connection_string(conn_str, "$Default", eventhub_name=eh_name)
@@ -118,7 +127,8 @@ async def shutdown():
 
 # --- ENDPOINTY ---
 @app.get("/", response_class=HTMLResponse)
-async def get_index(request: Request, db: Session = Depends(get_db)):
+async def get_index(request: Request):
+# async def get_index(request: Request, db: Session = Depends(get_db)):
     # messages = db.query(Message).order_by(Message.created_at.desc()).limit(50).all()
     messages = []
     return templates.TemplateResponse("index.html", {"request": request, "messages": messages})
